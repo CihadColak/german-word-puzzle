@@ -1,20 +1,29 @@
 import random
 # function that takes word and guess and returns number of common chars
 
+# Take an empty dictionary
 
 def common_chars(word, guess):
+    dict = {}
+    for char in word:
+        if char in dict:
+            dict[char] += 1
+        else:
+            dict[char] = 1
     # für jede guess buchstabe:
     res = ""
+    count_yellow_occur = 0
     for i in range(len(guess)):
 
         # erstmal gucken ob richtig, an richtige stelle
         if word[i] == guess[i]:
             # wenn so dann zum resultat "gruen: c"
             res = res + '\033[92m' + guess[i] + '\033[0m'
+            dict[word[i]] -= 1
         # dann checken richtig, aber falsche stelle
-        elif guess[i] in word:
+        elif guess[i] in word and dict[guess[i]] > 0 and count_yellow_occur < dict[guess[i]]:
             res += '\033[93m' + guess[i] + '\033[0m'
-            # wenn so dann zum resultat "gelb: c"
+            count_yellow_occur += 1
         # sonst
         else:
             res += guess[i]
@@ -37,9 +46,10 @@ def generate_word(wordFile):
     randomWord = random.choice(open(wordFile).read().split("\n"))
     return randomWord
 
-word = "query"
 wordFile = "5char_words.txt"
 testWord = generate_word(wordFile)
+#print(testWord)
+word = "slbee"
 lives = 6
 i = 0
 while lives > 0:
@@ -48,13 +58,13 @@ while lives > 0:
     if (len(guess) != 5):
         print("Das Wort besteht aus 5 Buchstaben" + "\n")
         continue
-    if guess == testWord:
+    if guess == word:
         print("Gratulation!")
         break
-    status = common_chars(testWord, guess)
+    status = common_chars(word, guess)
     print(status)
     lives -= 1
 if lives == 0:
-    print("Gesuchtes Wort: ", testWord)
+    print("Gesuchtes Wort: ", word)
     # check how many letters were right
 print("Ende des Spiels")
