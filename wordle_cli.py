@@ -37,9 +37,8 @@ def generate_word(wordFile):
     randomWord = random.choice(open(wordFile).read().split("\n"))
     return randomWord
 
-
 word = "query"
-wordFile = "10000_de_words.txt"
+wordFile = "5char_words.txt"
 testWord = generate_word(wordFile)
 lives = 6
 i = 0
@@ -54,7 +53,8 @@ while lives > 0:
         break
     status = common_chars(testWord, guess)
     print(status)
-
     lives -= 1
+if lives == 0:
+    print("Gesuchtes Wort: ", testWord)
     # check how many letters were right
 print("Ende des Spiels")
