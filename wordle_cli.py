@@ -3,6 +3,7 @@ import random
 
 # Take an empty dictionary
 
+
 def common_chars(word, guess):
     dict = {}
     for char in word:
@@ -46,14 +47,14 @@ def generate_word(wordFile):
     randomWord = random.choice(open(wordFile).read().split("\n"))
     return randomWord
 
+
 wordFile = "5char_words.txt"
 testWord = generate_word(wordFile)
-#print(testWord)
+# print(testWord)
 word = "slbee"
 lives = 6
-i = 0
 while lives > 0:
-    print("Du hast " + str(lives-i) + " Leben noch!")
+    print("Du hast " + str(lives) + " Leben noch!")
     guess = input("Wort eingeben: ")
     if (len(guess) != 5):
         print("Das Wort besteht aus 5 Buchstaben" + "\n")

@@ -3,9 +3,22 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>Wortle - Das Wort Puzzle</title>
+    <script src="main.js"></script>
 </head>
 <body>
-<p>Hier wird bald wortle entstehen</p>
+    <div class="wrapper" style="text-align:center;" >
+    <div>
+        <h3>Wortle</h3>
+    </div>
+    <div >
+        <form onSubmit="return false;">
+            <input style="margin-left:auto;margin-right:auto;display: block;" type="text" maxlength="5" onkeypress="search(this)">
+        </form>
+        <p id=current_guess> </p>
+        <p id="error_message" style="color: red;"></p>
+        <p id="game_end"></p>
+    </div>
+</div>
 </body>
 </html>
