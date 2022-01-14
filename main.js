@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let error_message = "";
   let current_row = 0;
   let current_char = 0;
+  let won = false;
   document.addEventListener("keydown", processKey);
 
   function read_attempt(row) {
@@ -16,14 +17,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function processKey(e) {
-    console.log(e);
+    //console.log(e);
     let current_box_id = "box_" + current_row + "_" + current_char;
+    console.log(current_box_id);
     let previous_box_id = "box_" + current_row + "_" + (current_char - 1);
+    if (won) {
+      return;
+    }
 
     // check if enter is pressed
     if (e.key === "Enter") {
       let guess = read_attempt(current_row);
-      console.log(guess);
+
+      if (guess.length !== 5) {
+        document.getElementById("error_message").innerText =
+          "Das gesuchte Wort besteht aus 5 Zeichen!";
+        return;
+      }
+      document.getElementById("error_message").innerText = "";
+      let score = getScore(word, guess);
+      colorRow(current_row, score);
+      let winCount = score.filter((x) => x === "darkseagreen").length;
+      if (winCount === 5) {
+        won = true;
+        alert("Sie haben gewonnen!");
+      }
+      current_row++;
+      current_char = 0;
+
       return;
     }
 
@@ -39,13 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return;
     }
-    if (e.key.match("^[a-zA-Z()]+$")) {
+    if (e.key.match("^[a-zA-Z()]+$") && e.key.length === 1) {
       document.getElementById(current_box_id).innerHTML = e.key.toUpperCase();
 
       current_char++;
     }
   }
   function getScore(word, guess) {
+    guess = guess.toLowerCase();
     let score = [];
     word_obj = {};
     guess_obj = {};
@@ -57,14 +79,23 @@ document.addEventListener("DOMContentLoaded", () => {
       else guess_obj[w] = guess_obj[w] + 1;
     for (i = 0; i < 5; i++) {
       if (word[i] == guess[i]) {
-        score.push(2);
+        score.push("darkseagreen");
       } else if (word.includes(guess[i])) {
-        score.push(1);
+        score.push("khaki");
       } else {
-        score.push(0);
+        score.push("lightgrey");
       }
     }
     return score;
+  }
+
+  function colorRow(row, score) {
+    for (let i = 0; i < 5; i++) {
+      let currentBoxId = "box_" + row + "_" + i;
+      let currentBox = document.getElementById(currentBoxId);
+      currentBox.style.color = "white";
+      currentBox.style.backgroundColor = score[i];
+    }
   }
 
   function attempt(guess, word) {
@@ -96,15 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function search(ele) {
-    if (event.key === "Enter") {
-      attempt(ele.value, word);
-    }
-  }
-
   function draw_boxes() {
     let word_grid = document.getElementById("word_grid");
-    console.log("word_grid:", word_grid);
     for (let i = 0; i < 6; i++) {
       let row = document.createElement("div");
       row.className = "row";
