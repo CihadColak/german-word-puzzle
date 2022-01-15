@@ -496,6 +496,44 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("current_guess").innerText = game_status;
     }
   }
+  function drawKeyboard() {
+    const rows = ["qwertzuiop", "asdfghjkl", "yxcvbnm"];
+
+    let virtualKeyboard = document.getElementById("virtual_keyboard");
+    for (let i = 0; i < 3; i++) {
+      let keyboardRow = document.createElement("div");
+      keyboardRow.className = "keyboard_row";
+      keyboardRow.setAttribute("id", "keyboard_row" + i);
+      virtualKeyboard.appendChild(keyboardRow);
+      for (let c of rows[i]) {
+        let keyObject = { key: c };
+        let key = document.createElement("div");
+        key.className = "key";
+        key.setAttribute("id", "key_" + i + "_" + c);
+        key.innerText = c.toUpperCase();
+        key.addEventListener("click", function () {
+          processKey(keyObject);
+        });
+        keyboardRow.appendChild(key);
+      }
+    }
+    // add Enter and Backspace seperately, this should be DRYed but idc its 1am
+    let enterKey = document.createElement("div");
+    let backspaceKey = document.createElement("div");
+    enterKey.className = "extrakey";
+    backspaceKey.className = "extrakey";
+    enterKey.innerText = "ENTER";
+    backspaceKey.innerText = "DEL";
+    enterKey.addEventListener("click", function () {
+      processKey({ key: "Enter" });
+    });
+    backspaceKey.addEventListener("click", function () {
+      processKey({ key: "Backspace" });
+    });
+    let thirdRow = document.getElementById("keyboard_row2");
+    thirdRow.insertBefore(enterKey, thirdRow.firstChild);
+    thirdRow.appendChild(backspaceKey);
+  }
 
   function draw_boxes() {
     let word_grid = document.getElementById("word_grid");
@@ -513,4 +551,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   draw_boxes();
+  drawKeyboard();
 });
