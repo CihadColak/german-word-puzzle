@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "börse",
     "bibel",
     "indiz",
-    "schon",
     "fähre",
     "lokal",
     "linie",
@@ -8910,10 +8909,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("error_message").innerText = "";
       let score = getScore(word, guess);
       colorRow(current_row, score);
+      colorKeyboard(guess, score);
       let winCount = score.filter((x) => x === "darkseagreen").length;
       if (winCount === 5) {
         gameEnd = true;
         alert("Sie haben gewonnen!");
+        return;
       }
       current_row++;
       if (current_row === 6) {
@@ -8962,7 +8963,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (word.includes(guess[i])) {
         score.push("khaki");
       } else {
-        score.push("lightgrey");
+        score.push("grey");
       }
     }
     return score;
@@ -8974,6 +8975,18 @@ document.addEventListener("DOMContentLoaded", () => {
       let currentBox = document.getElementById(currentBoxId);
       currentBox.style.color = "white";
       currentBox.style.backgroundColor = score[i];
+    }
+  }
+
+  function colorKeyboard(guess, score) {
+    for (let i = 0; i < 5; i++) {
+      let currentKeyId = "key_" + guess[i].toLowerCase();
+      console.log(currentKeyId);
+      let currentKey = document.getElementById(currentKeyId);
+      console.log(currentKey);
+
+      currentKey.style.color = "white";
+      currentKey.style.backgroundColor = score[i];
     }
   }
 
@@ -8990,7 +9003,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let keyObject = { key: c };
         let key = document.createElement("div");
         key.className = "key";
-        key.setAttribute("id", "key_" + i + "_" + c);
+        key.setAttribute("id", "key_" + c);
         key.innerText = c.toUpperCase();
         key.addEventListener("click", function () {
           processKey(keyObject);
