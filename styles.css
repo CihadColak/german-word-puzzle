@@ -21,7 +21,6 @@ input {
 }
 
 .extrakey {
-  width: 60px;
   width: 66px;
 }
 
@@ -47,7 +46,12 @@ input {
   margin-right: auto;
   display: block;
 }
+
 #footer {
   bottom: 0%;
   position: fixed;
+}
+
+#keyboard_row1 {
+  margin-left: 1.5em;
 }
