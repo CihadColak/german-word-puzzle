@@ -62,10 +62,11 @@ def generate_word(wordFile):
 
 
 wordFile = "5char_words.txt"
-testWord = "Engel".lower()
+testWord = "elanz".lower()
 print(testWord)
 
 lives = 6
+i = 0
 while lives > 0:
     print("Du hast " + str(lives-i) + " Leben noch!")
     guess = input("Wort eingeben: ").lower()
