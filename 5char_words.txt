@@ -124,7 +124,7 @@ bänke
 böcke
 bögen
 bösch
-böses
+bösesx
 bünde
 büstex
 cwüag
@@ -159,7 +159,7 @@ göcke
 gökay
 gökay
 götte
-gülle
+güllex
 ha-jü
 häfen
 härtex
@@ -170,7 +170,7 @@ höhne
 höppe
 hülle
 hünen
-hüter
+hüterx
 jürgs
 klöne
 kräne
@@ -185,7 +185,7 @@ körbe
 köris
 kübel
 kühen
-kühne
+kühnex
 lässt
 läufe
 läuft
@@ -215,10 +215,10 @@ rölke
 stößt
 säcke
 säume
-säure
+säurex
 söhne
 sölle
-sünde
+sündex
 süßes
 thomä
 thöne
@@ -226,7 +226,7 @@ tätig
 töpfe
 töps”
 töten
-türke
+türkex
 türme
 wälle
 zäsur
